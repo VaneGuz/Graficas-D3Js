@@ -1,0 +1,64 @@
+<head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.13-beta/nv.d3.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.13-beta/nv.d3.css" />
+<script src="../lib/stream_layer.js" ></script>
+
+</head>
+
+<body>
+
+
+<div id='chart'>
+  <svg style='height:500px'> </svg>
+</div>
+
+<script>
+nv.addGraph(function() {
+  var chart = nv.models.lineWithFocusChart();
+
+  var xAxis = chart.xAxis;
+      xAxis.tickFormat(d3.format(',f'));
+
+      console.log("xAxis");
+      console.log(xAxis);
+
+  var yAxis = chart.yAxis;
+
+      yAxis.tickFormat(d3.format(',.2f'));
+      console.log("yAxis");
+console.log(yAxis);
+  chart.y2Axis
+      .tickFormat(d3.format(',.2f'));
+
+  d3.select('#chart svg')
+      .datum(testData())
+      .transition().duration(500)
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+/**************************************
+ * Simple test data generator
+ */
+
+function testData() {
+  return stream_layers(3,128,10).map(function(data, i) {
+    /* x = objeto de una línea */
+    x = {
+     /*Etiqueta de líneas*/
+      key: 'Linea ' + i,
+      values: data
+    };
+    console.log(x);
+    return x;
+  });
+}
+
+
+</script>
+
+</body>
