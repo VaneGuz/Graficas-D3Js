@@ -18,17 +18,12 @@
 nv.addGraph(function() {
   var chart = nv.models.lineWithFocusChart();
 
-  var xAxis = chart.xAxis;
-      xAxis.tickFormat(d3.format(',f'));
+  chart.xAxis
+      .tickFormat(d3.format(',f'));
 
-      console.log("xAxis");
-      console.log(xAxis);
+  chart.yAxis
+      .tickFormat(d3.format(',.2f'));
 
-  var yAxis = chart.yAxis;
-
-      yAxis.tickFormat(d3.format(',.2f'));
-      console.log("yAxis");
-console.log(yAxis);
   chart.y2Axis
       .tickFormat(d3.format(',.2f'));
 
@@ -46,15 +41,11 @@ console.log(yAxis);
  */
 
 function testData() {
-  return stream_layers(3,128,10).map(function(data, i) {
-    /* x = objeto de una línea */
-    x = {
-     /*Etiqueta de líneas*/
-      key: 'Linea ' + i,
+  return stream_layers(3,128,.1).map(function(data, i) {
+    return {
+      key: 'Stream' + i,
       values: data
     };
-    console.log(x);
-    return x;
   });
 }
 
